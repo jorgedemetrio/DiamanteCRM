@@ -17,7 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.br.alldreams.diamantecrm.usuario.domain.StatusInformacaoEnum;
+import br.com.alldreams.diamanetecrm.dados.vo.StatusInformacaoEnum;
+
 import com.br.alldreams.diamantecrm.usuario.domain.Usuario;
 
 /**

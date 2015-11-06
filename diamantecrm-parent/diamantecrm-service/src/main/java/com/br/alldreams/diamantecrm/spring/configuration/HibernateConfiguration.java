@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "br.com.ebix.cotacaovg" })
+@ComponentScan({ "com.br.alldreams.diamantecrm" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
 
@@ -46,14 +46,6 @@ public class HibernateConfiguration {
 	@Bean
 	public DataSource dataSource() {
 		LOGGER.debug("Pegando o DataSoruce.");
-		// final DriverManagerDataSource dataSource = new
-		// DriverManagerDataSource();
-		// dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		// dataSource.setUrl("jdbc:sqlserver://192.168.12.150:1433;databaseName=COTACAOVG");
-		// dataSource.setUsername("sa");
-		// dataSource.setPassword("Ebix@2012");
-		// return dataSource;
-
 		DataSource ds = null;
 		try {
 			final Context initContext = new InitialContext();

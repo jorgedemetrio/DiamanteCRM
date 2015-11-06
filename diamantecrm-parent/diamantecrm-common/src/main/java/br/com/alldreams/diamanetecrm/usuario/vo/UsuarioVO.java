@@ -1,95 +1,78 @@
 /**
  *
  */
-package com.br.alldreams.diamantecrm.usuario.domain;
+package br.com.alldreams.diamanetecrm.usuario.vo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
 import br.com.alldreams.diamanetecrm.dados.vo.StatusInformacaoEnum;
-
-import com.br.alldreams.diamantecrm.contato.domain.Contato;
 
 /**
  * @author Jorge Demetrio
  * @version 1.0
- * @since 03/11/2015 18:26:34
+ * @since 06/11/2015 13:33:49
  */
-@Entity
-@Table(name = "tb_usuario")
-@NamedQueries({ @NamedQuery(name = Usuario.GETLALL, query = "SELECT u FROM Usuario u WHERE u.status <> 'REMOVIDO' ") })
-public class Usuario implements Serializable {
+public class UsuarioVO implements Serializable {
 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = -7609438078966683149L;
+	private static final long serialVersionUID = 2181122543628369545L;
 
-	public static final String GETLALL = "Usuario.getAll";
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", insertable = false, updatable = false, nullable = true)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "id_contato", insertable = true, updatable = false, nullable = false)
-	private Contato contato;
-
-	@Column(name = "dt_validade", insertable = true, updatable = true, nullable = true, unique = false)
 	private Date validade;
 
-	@Column(name = "dt_bloqueado", insertable = false, updatable = true, nullable = true, unique = false)
+	// private Contato contato;
+
 	private Date bloqueado;
 
-	@Column(name = "str_usuario", insertable = true, updatable = false, nullable = true, unique = true, length = 150)
 	private String usuario;
 
-	@Column(name = "str_senha", insertable = true, updatable = false, nullable = true, unique = false, length = 150)
 	private String senha;
 
-	@Column(name = "token", insertable = true, updatable = false, unique = true, nullable = false, length = 100)
 	private String token;
 
-	@Column(name = "dt_criado", insertable = true, updatable = true, unique = false, nullable = false)
 	private Date criado;
 
-	@Column(name = "dt_alterado", insertable = true, updatable = true, unique = false, nullable = true)
 	private Date alterado;
 
-	@ManyToOne
-	@JoinColumn(name = "criador", insertable = true, updatable = true, unique = false, nullable = false)
-	private Usuario criador;
+	private UsuarioVO criador;
 
-	@ManyToOne
-	@JoinColumn(name = "alterador", insertable = true, updatable = true, unique = false, nullable = false)
-	private Usuario alterador;
+	private UsuarioVO alterador;
 
-	@Column(name = "alterador", insertable = true, updatable = true, unique = false, nullable = false, length = 50)
-	@Enumerated(EnumType.STRING)
 	private StatusInformacaoEnum status;
 
-	@Column(name = "host_ip_criador", insertable = true, updatable = true, unique = false, nullable = false, length = 30)
 	private String ipCriado;
 
-	@Column(name = "host_ip_alterador", insertable = true, updatable = true, unique = false, nullable = true, length = 30)
 	private String ipAlterado;
 
-	@Column(name = "versao", insertable = true, updatable = true, unique = false, nullable = true)
 	private Integer versao;
+
+	/**
+	 *
+	 */
+	public UsuarioVO() {
+	}
+
+	/**
+	 * Construr para criar a entidade com o Id já atribuido .
+	 *
+	 * @param id
+	 */
+	public UsuarioVO(Integer id) {
+		this.id = id;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object arg0) {
+		return getId() != null && arg0 != null && arg0 instanceof UsuarioVO && getId().equals(UsuarioVO.class.cast(arg0).getId());
+	}
 
 	/**
 	 * @return the alterado
@@ -101,7 +84,7 @@ public class Usuario implements Serializable {
 	/**
 	 * @return the alterador
 	 */
-	public Usuario getAlterador() {
+	public UsuarioVO getAlterador() {
 		return alterador;
 	}
 
@@ -110,13 +93,6 @@ public class Usuario implements Serializable {
 	 */
 	public Date getBloqueado() {
 		return bloqueado;
-	}
-
-	/**
-	 * @return the contato
-	 */
-	public Contato getContato() {
-		return contato;
 	}
 
 	/**
@@ -129,7 +105,7 @@ public class Usuario implements Serializable {
 	/**
 	 * @return the criador
 	 */
-	public Usuario getCriador() {
+	public UsuarioVO getCriador() {
 		return criador;
 	}
 
@@ -197,6 +173,15 @@ public class Usuario implements Serializable {
 	}
 
 	/**
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return getId().intValue();
+	}
+
+	/**
 	 * @param alterado
 	 *            the alterado to set
 	 */
@@ -208,7 +193,7 @@ public class Usuario implements Serializable {
 	 * @param alterador
 	 *            the alterador to set
 	 */
-	public void setAlterador(Usuario alterador) {
+	public void setAlterador(UsuarioVO alterador) {
 		this.alterador = alterador;
 	}
 
@@ -218,14 +203,6 @@ public class Usuario implements Serializable {
 	 */
 	public void setBloqueado(Date bloqueado) {
 		this.bloqueado = bloqueado;
-	}
-
-	/**
-	 * @param contato
-	 *            the contato to set
-	 */
-	public void setContato(Contato contato) {
-		this.contato = contato;
 	}
 
 	/**
@@ -240,11 +217,9 @@ public class Usuario implements Serializable {
 	 * @param criador
 	 *            the criador to set
 	 */
-	public void setCriador(Usuario criador) {
+	public void setCriador(UsuarioVO criador) {
 		this.criador = criador;
 	}
-
-	// ************************* CONTROLE
 
 	/**
 	 * @param id
@@ -316,6 +291,21 @@ public class Usuario implements Serializable {
 	 */
 	public void setVersao(Integer versao) {
 		this.versao = versao;
+	}
+
+	/**
+	 * JSON Format
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		// \"contato\":\""+contato+"\",
+		final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
+		return "{\"id\":\"" + id + "\",\"validade\":\"" + sdf.format(validade) + "\",\"bloqueado\":\"" + bloqueado + "\",\"usuario\":\"" + usuario
+				+ "\",\"senha\":\"" + senha + "\",\"token\":\"" + token + "\",\"criado\":\"" + sdf.format(criado) + "\",\"alterado\":\"" + sdf.format(alterado)
+				+ "\",\"status\":\"" + status.name() + "\",\"ipCriado\":\"" + ipCriado + "\",\"ipAlterado\":\"" + ipAlterado + "\",\"versao\":\"" + versao
+				+ "\"}";
 	}
 
 }
